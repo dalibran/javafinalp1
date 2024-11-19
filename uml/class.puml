@@ -1,0 +1,122 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Content {
+    - int id
+    - String title
+    - String description
+    - User creator
+    - Date createdAt
+    + void setId(int id)
+    + int getId()
+    + void setTitle(String title)
+    + String getTitle()
+    + void setDescription(String description)
+    + String getDescription()
+    + void setCreator(User user)
+    + User getCreator()
+    + void setCreatedAt(Date date)
+    + Date getCreatedAt()
+}
+
+enum Status {
+    TODO
+    IN_PROGRESS
+    COMPLETE
+    CLOSED
+}
+
+class Task {
+    - Status currentStatus
+    - List<Comment> comments
+    - Date dueDate
+    + void setCurrentStatus(int statusIndex)
+    + String getCurrentStatus()
+    + void setComments(List<Comment> comments)
+    + List<Comment> getComments()
+    + void addComment(Comment comment)
+    + void setDueDate(Date date)
+    + Date getDueDate()
+}
+
+class TaskPreview {
+    - int id
+    - String title
+    - Status currentStatus
+    + int getId()
+    + void setId()
+    + String getTitle()
+    + void setTitle()
+    + String getCurrentStatus()
+    + void setCurrentStatus()
+}
+
+class Comment {
+}
+
+class User {
+    - int userId
+    - String password
+    - String username
+    + void setUserId()
+    + int getUserId()
+    + void setUsername()
+    + String getUsername()
+    + void setPassword()
+    + String getPassword()
+}
+
+class TaskController {
+    + getTaskList()
+    + onTaskClick()
+    + onAddTaskButtonClick()
+    + onUpdateTaskButtonClick()
+    + onAddCommentButtonClick()
+    + onDeleteTaskButtonClick()
+}
+
+class TaskService {
+    + List<TaskPreview> getTaskList()
+    + Task getTask(int taskId)
+    + Task addTask(Task newTask)
+    + Task updateTask(Task updatedTask)
+    + boolean deleteTask(int taskId)
+}
+
+class Server {
+    + List<TaskPreview> getTaskList()
+    + Task getTask(int taskId)
+    + Task addTask(Task task)
+    + Task updateTask(Task task)
+    + boolean deleteTask(int id)
+}
+
+class TaskManager {
+    + List<TaskPreview> getTaskList()
+    + Task getTask(int id)
+    + Task addTask(Task task)
+    + Task updateTask(Task task)
+    + boolean deleteTask(int id)
+}
+
+class TaskListView {
+}
+
+class TaskDetailView {
+}
+
+Content <|-- Task
+Content <|-- Comment
+Task *-- Comment
+User *-- Task
+TaskManager o-- Task
+TaskManager o-- TaskPreview
+TaskController o-- TaskService: Uses
+Task --> Status
+TaskPreview --> Status
+TaskListView o-- TaskController
+TaskDetailView o-- TaskController
+TaskService o-- Server: Sends Requests
+Server o-- TaskManager: Routes Requests
+
+@enduml

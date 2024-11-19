@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor User
+participant TaskDetailView as UI
+participant TaskController
+participant TaskService
+participant Server
+participant TaskManager
+participant Task
+
+User -> UI: Delete Task
+UI -> TaskController: onDeleteTaskButtonClick()
+TaskController -> TaskService: deleteTask()
+TaskService -> Server: deleteTask()
+Server -> TaskManager: deleteTask()
+TaskManager -> TaskManager: List.remove()
+TaskManager --> Server: boolean
+Server --> TaskService: boolean
+TaskService --> TaskController: boolean
+TaskController -> UI: updateUI()
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor User
+participant TaskDetailView as UI
+participant TaskController
+participant TaskService
+participant Server
+participant TaskManager
+participant Task
+
+User -> UI: Update Task (Add Comment)
+UI -> TaskController: onAddCommentButtonClick()
+TaskController -> TaskService: updateTask()
+TaskService -> Server: updateTask()
+Server -> TaskManager: updateTask()
+TaskManager -> Task: comments.add(comment)
+Task --> TaskManager: Task
+TaskManager --> Server: Task
+Server --> TaskService: Task
+TaskService --> TaskController: Task
+TaskController -> UI: updateUI()
+
+@enduml

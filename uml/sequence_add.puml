@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor User
+participant TaskListView as UI
+participant TaskController
+participant TaskService
+participant Server
+participant TaskManager
+participant Task
+
+User -> UI: Create Task
+UI -> TaskController: onAddTaskButtonClick()
+TaskController -> TaskService: addTask()
+TaskService -> Server: addTask()
+Server -> TaskManager: addTask()
+TaskManager -> Task: new Task()
+Task --> TaskManager: Task
+TaskManager --> Server: Task
+Server --> TaskService: Task
+TaskService --> TaskController: Task
+TaskController -> UI: updateUI()
+
+@enduml
