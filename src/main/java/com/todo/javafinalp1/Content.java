@@ -1,16 +1,16 @@
 package com.todo.javafinalp1;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-abstract class Content {
+abstract class Content implements Serializable {
     //member variables
-    protected int id;
     protected String title;
     protected String description;
     protected LocalDate createdAt;
+    private static final long serialVersionUID = 1L;
 
-    public abstract void setId();
-    public abstract void setTitle();
+    public abstract void setTitle(String title);
     public abstract void setDescription(String desc);
 
     public String getTitle() {

@@ -2,6 +2,7 @@ package com.todo.javafinalp1;
 
 public class Comment extends Content {
     private static int counter = 0;
+    private int id;
     protected static final int COMMENT_MAX_LENGTH = 300;
 
     public Comment(String desc) {
@@ -13,12 +14,9 @@ public class Comment extends Content {
         return ++counter;
     }
 
-    @Override
-    public void setId() {}
-
     //override unused method to do nothing
     @Override
-    public void setTitle() {
+    public void setTitle(String title) {
         throw new UnsupportedOperationException("This method is not supported in this subclass.");
     }
 

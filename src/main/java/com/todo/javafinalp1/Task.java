@@ -10,7 +10,6 @@ public class Task extends Content {
 
     //uses Builder design pattern as constructor to allow for optional params
     protected Task(Builder builder) {
-        this.id = builder.id;
         this.title = builder.title;
         this.description = builder.description;
         this.createdAt = builder.createdAt;
@@ -19,11 +18,9 @@ public class Task extends Content {
     }
 
     @Override
-    public void setId() {}
-
-    @Override
-    public void setTitle() {}
-
+    public void setTitle(String title) {
+        this.title = title;
+    }
     @Override
     public void setDescription(String desc) {}
 
@@ -55,10 +52,13 @@ public class Task extends Content {
         return dueDate;
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     public static class Builder {
-        private static int counter = 0;
         private static final int TITLE_MAX_LENGTH = 60;
-        private int id;
         private final String title;
         private String description;
         private LocalDate createdAt;
@@ -66,7 +66,6 @@ public class Task extends Content {
         private Status currentStatus = Status.TODO;
 
         public Builder(String title) {
-            this.id = incrementId();
             this.title = validateTitle(title);
             this.createdAt = LocalDate.now();
         }
@@ -79,10 +78,6 @@ public class Task extends Content {
         public Builder dueDate(LocalDate date) {
             this.dueDate = date;
             return this;
-        }
-
-        private int incrementId() {
-            return ++counter;
         }
 
         private String validateTitle(String title) {
