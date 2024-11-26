@@ -53,15 +53,27 @@ public class TaskService {
             // Send the request to the server
             oos.writeObject("getTaskList");  // send fetchAll request
             oos.flush();
-
             // Receive the task list from the server
+//            ArrayList<TaskPreview> taskList = (ArrayList<TaskPreview>) ois.readObject();
             ArrayList<TaskPreview> taskList = (ArrayList<TaskPreview>) ois.readObject();
-
-            // Display the task list
-            System.out.println("\nTask List:");
+//            Object obj = ois.readObject();
             for (TaskPreview task : taskList) {
                 System.out.println(task.getTitle());
             }
+//            System.out.println("Received object of type: " + obj.getClass());
+//            if (obj instanceof ArrayList) {
+//                ArrayList<TaskPreview> taskList = (ArrayList<TaskPreview>) obj;
+//                System.out.println("Task list: " + taskList);
+//            } else {
+//                Task task = (Task) obj;
+//                System.out.println("Unexpected object received: " + task.getTitle());
+//            }
+
+            // Display the task list
+//            System.out.println("\nTask List:");
+//            for (TaskPreview task : taskList) {
+//                System.out.println(task.getTitle());
+//            }
             System.out.println();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -75,14 +87,19 @@ public class TaskService {
             oos.writeObject("addTask");
             oos.flush();
 
+            //Accept user input and create Task obj
             System.out.println("Enter Task Title: ");
             String title = userInput.readLine();
             newTask = new Task.Builder(title).build();
 
+            //Send new task obj to server
             System.out.println("Sending task: " + newTask.getTitle());
             oos.writeObject(newTask);
             oos.flush();
-        } catch (IOException e) {
+
+            //Receive task response
+            newTask = (Task) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return newTask;

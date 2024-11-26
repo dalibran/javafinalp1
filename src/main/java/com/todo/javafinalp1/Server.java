@@ -53,6 +53,10 @@ public class Server {
                             switch (action) {
                                 case "getTaskList":
                                     taskList = getTaskList();
+                                    for (TaskPreview task : taskList) {
+                                        System.out.println(task.getTitle());
+                                    }
+                                    oos.reset();
                                     oos.writeObject(taskList);
                                     oos.flush();
                                     System.out.println("Task List sent to client");
@@ -63,6 +67,7 @@ public class Server {
                                     Task returnedTask = addTask(newTask);
                                     oos.writeObject(returnedTask);
                                     oos.flush();
+                                    oos.reset();
                                     System.out.println("Task created and returned to client");
                                     break;
                                 case "exit":

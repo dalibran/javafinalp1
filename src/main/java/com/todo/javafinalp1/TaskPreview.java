@@ -25,9 +25,4 @@ public class TaskPreview implements Serializable {
     public Status getCurrentStatus(){
         return currentStatus;
     }
-
-    @Override
-    public String toString() {
-        return taskId + ": " + title;
-    }
 }

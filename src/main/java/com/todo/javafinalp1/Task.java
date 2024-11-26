@@ -52,11 +52,6 @@ public class Task extends Content {
         return dueDate;
     }
 
-    @Override
-    public String toString() {
-        return title;
-    }
-
     public static class Builder {
         private static final int TITLE_MAX_LENGTH = 60;
         private final String title;
