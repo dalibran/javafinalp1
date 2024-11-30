@@ -4,12 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Task extends Content {
-    protected ArrayList<Comment> comments = new ArrayList<>(5);
-    protected LocalDate dueDate;
-    protected Status currentStatus;
-
+    private ArrayList<Comment> comments = new ArrayList<>(5);
+    private LocalDate dueDate;
+    private Status currentStatus;
     //uses Builder design pattern as constructor to allow for optional params
-    protected Task(Builder builder) {
+    private Task(Builder builder) {
         this.title = builder.title;
         this.description = builder.description;
         this.createdAt = builder.createdAt;
@@ -24,11 +23,11 @@ public class Task extends Content {
     @Override
     public void setDescription(String desc) {}
 
-    public void setStatus(Status status) {
+    public void setCurrentStatus(Status status) {
         this.currentStatus = status;
     }
 
-    public Status getStatus() {
+    public Status getCurrentStatus() {
         return currentStatus;
     }
 

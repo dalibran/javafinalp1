@@ -1,6 +1,7 @@
 package com.todo.javafinalp1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,14 +14,7 @@ public class Main {
 
         //adds
         manager.addTask(task1);
-        ArrayList<TaskPreview> list = manager.getTaskList();
-
-        //prints TaskPreview objects
-        for (TaskPreview preview : list) {
-            System.out.println(preview.getTaskId());
-            System.out.println(preview.getTitle());
-            System.out.println(preview.getCurrentStatus());
-            System.out.println();
-        }
+        HashMap<Integer, Task> tasks = manager.getTasks();
+        System.out.println("This is tasks: " + manager.getTask(1));
     }
 }

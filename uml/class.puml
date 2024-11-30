@@ -13,8 +13,6 @@ abstract class Content {
     + String getTitle()
     + void setDescription(String description)
     + String getDescription()
-    + void setCreator(User user)
-    + User getCreator()
     + void setCreatedAt(Date date)
     + Date getCreatedAt()
 }
@@ -29,26 +27,26 @@ enum Status {
 class Task {
     - Status currentStatus
     - List<Comment> comments
-    - Date dueDate
+    - LocalDate dueDate
     + void setCurrentStatus(int statusIndex)
     + String getCurrentStatus()
     + void setComments(List<Comment> comments)
     + List<Comment> getComments()
     + void addComment(Comment comment)
     + void setDueDate(Date date)
-    + Date getDueDate()
+    + LocalDate getDueDate()
+}
+
+class Builder {
 }
 
 class TaskPreview {
-    - int id
+    - int taskId
     - String title
     - Status currentStatus
-    + int getId()
-    + void setId()
+    + int getTaskId()
     + String getTitle()
-    + void setTitle()
     + String getCurrentStatus()
-    + void setCurrentStatus()
 }
 
 class Comment {
@@ -92,6 +90,10 @@ class Server {
 }
 
 class TaskManager {
+    - HashMap<Task> tasks
+    - ArrayList<TaskPreview> taskList
+    - int counter
+    - int incrementId()
     + List<TaskPreview> getTaskList()
     + Task getTask(int id)
     + Task addTask(Task task)
@@ -113,6 +115,7 @@ TaskManager o-- Task
 TaskManager o-- TaskPreview
 TaskController o-- TaskService: Uses
 Task --> Status
+Task --> Builder
 TaskPreview --> Status
 TaskListView o-- TaskController
 TaskDetailView o-- TaskController

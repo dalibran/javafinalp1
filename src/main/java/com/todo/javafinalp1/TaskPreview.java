@@ -10,8 +10,8 @@ public class TaskPreview implements Serializable {
 
     public TaskPreview(int id, Task task) {
         this.taskId = id;
-        this.title = task.title;
-        this.currentStatus = task.currentStatus;
+        this.title = task.getTitle();
+        this.currentStatus = task.getCurrentStatus();
     }
 
     public int getTaskId() {

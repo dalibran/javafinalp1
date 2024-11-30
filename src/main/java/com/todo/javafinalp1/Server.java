@@ -7,10 +7,9 @@ import java.util.ArrayList;
 
 public class Server {
     private static TaskManager taskManager = new TaskManager();
-    private static ArrayList<TaskPreview> taskList;
 
     private static ArrayList<TaskPreview> getTaskList() {
-        taskList = taskManager.getTaskList();
+        ArrayList<TaskPreview> taskList = taskManager.getTaskList();
         return taskList;
     }
 
@@ -29,7 +28,7 @@ public class Server {
         return updatedTask;
     }
 
-    private boolean deleteTask(int id) {
+    private static boolean deleteTask(int id) {
         return taskManager.deleteTask(id);
     }
 
@@ -51,25 +50,42 @@ public class Server {
                             action = (String) ois.readObject();
 
                             switch (action) {
-                                case "getTaskList":
-                                    taskList = getTaskList();
+                                case "getTaskList": {
+                                    ArrayList<TaskPreview >taskList = getTaskList();
                                     for (TaskPreview task : taskList) {
                                         System.out.println(task.getTitle());
                                     }
                                     oos.reset();
                                     oos.writeObject(taskList);
                                     oos.flush();
-                                    System.out.println("Task List sent to client");
                                     break;
-                                case "addTask":
+                                }
+                                case "addTask": {
                                     Task newTask = (Task) ois.readObject();
-                                    System.out.println("Received task: " + newTask.getTitle());
                                     Task returnedTask = addTask(newTask);
                                     oos.writeObject(returnedTask);
                                     oos.flush();
                                     oos.reset();
-                                    System.out.println("Task created and returned to client");
                                     break;
+                                }
+                                case "updateTask":
+                                    break;
+                                case "getTask": {
+                                    int id = Integer.parseInt((String) ois.readObject());
+                                    Task task = getTask(id);
+                                    oos.writeObject(task);
+                                    oos.flush();
+                                    oos.reset();
+                                    break;
+                                }
+                                case "deleteTask": {
+                                    int id = Integer.parseInt((String) ois.readObject());
+                                    boolean deleteStatus = deleteTask(id);
+                                    oos.writeBoolean(deleteStatus);
+                                    oos.flush();
+                                    oos.reset();
+                                    break;
+                                }
                                 case "exit":
                                     keepConnectionOpen = false;
                                     break;
