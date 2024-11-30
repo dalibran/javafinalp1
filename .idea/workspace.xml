@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d73c01d-4c66-465f-82ea-d748ed947994" name="Changes" comment="Major:&#10;- implemented working client-server functionality&#10;- client-server sends/receives task list obj&#10;- client-server sends/receives task objs&#10;- user is able to make multiple server requests within the same session&#10;- implemented getTaskList within TaskManager&#10;- implemented updateTask, addTask, and deleteTask&#10;&#10;Minor:&#10;- refactored getTaskList to use HashMap instead of ArrayList for easier retrieval of tasks by key&#10;- removed id member variable and getId method from Content&#10;- added Serializable interface to Content so that we can pass objs through the server">
+    <list default="true" id="6d73c01d-4c66-465f-82ea-d748ed947994" name="Changes" comment="Minor changes and 1 bug fix&#10;- changed getTaskList call on Server to print titles and reset the object buffer&#10;- removed toString methods in Task and TaskPreview&#10;- removed some code used to troubleshoot failed object transfer between client and server&#10;- fixed bug where Task objects weren't sent to client">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskPreview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Status.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +46,20 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.TaskService">
+  <component name="RunManager" selected="Application.HelloApplication">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.HelloApplication" />
+      <module name="javafinalp1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.todo.javafinalp1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.Main" />
       <module name="javafinalp1" />
@@ -65,6 +75,19 @@
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.Server" />
+      <module name="javafinalp1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.todo.javafinalp1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskManagerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.TaskManagerApp" />
       <module name="javafinalp1" />
       <extension name="coverage">
         <pattern>
@@ -102,6 +125,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="Application.TaskManagerApp" />
         <item itemvalue="Application.TaskService" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Main" />
@@ -131,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732150233009</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Minor changes and 1 bug fix&#10;- changed getTaskList call on Server to print titles and reset the object buffer&#10;- removed toString methods in Task and TaskPreview&#10;- removed some code used to troubleshoot failed object transfer between client and server&#10;- fixed bug where Task objects weren't sent to client">
+      <created>1732657376389</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732657376389</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -149,7 +181,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="migrated project to JavaFX template" />
     <MESSAGE value="Major:&#10;- implemented working client-server functionality&#10;- client-server sends/receives task list obj&#10;- client-server sends/receives task objs&#10;- user is able to make multiple server requests within the same session&#10;- implemented getTaskList within TaskManager&#10;- implemented updateTask, addTask, and deleteTask&#10;&#10;Minor:&#10;- refactored getTaskList to use HashMap instead of ArrayList for easier retrieval of tasks by key&#10;- removed id member variable and getId method from Content&#10;- added Serializable interface to Content so that we can pass objs through the server" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major:&#10;- implemented working client-server functionality&#10;- client-server sends/receives task list obj&#10;- client-server sends/receives task objs&#10;- user is able to make multiple server requests within the same session&#10;- implemented getTaskList within TaskManager&#10;- implemented updateTask, addTask, and deleteTask&#10;&#10;Minor:&#10;- refactored getTaskList to use HashMap instead of ArrayList for easier retrieval of tasks by key&#10;- removed id member variable and getId method from Content&#10;- added Serializable interface to Content so that we can pass objs through the server" />
+    <MESSAGE value="Minor changes and 1 bug fix&#10;- changed getTaskList call on Server to print titles and reset the object buffer&#10;- removed toString methods in Task and TaskPreview&#10;- removed some code used to troubleshoot failed object transfer between client and server&#10;- fixed bug where Task objects weren't sent to client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor changes and 1 bug fix&#10;- changed getTaskList call on Server to print titles and reset the object buffer&#10;- removed toString methods in Task and TaskPreview&#10;- removed some code used to troubleshoot failed object transfer between client and server&#10;- fixed bug where Task objects weren't sent to client" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
