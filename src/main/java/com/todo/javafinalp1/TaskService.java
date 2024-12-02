@@ -5,176 +5,167 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class TaskService {
-    private static Socket socket;
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
 
-    public static void main(String[] args) {
-        try {
-            socket = new Socket("localhost", 8080);
-            System.out.println("Connected to the server.");
-
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            oos.flush();
-
-            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-
-            while (true) {
-                System.out.println("Please choose an action:");
-                System.out.println("1. View All Tasks");
-                System.out.println("2. Add a New Task");
-                System.out.println("3. Update a Task");
-                System.out.println("4. Get a Task");
-                System.out.println("5. Delete a Task");
-                System.out.println("6. Exit");
-                System.out.print("Enter your choice: ");
-
-                String choice = userInput.readLine();
-
-                switch(choice) {
-                    case "1":
-                        ArrayList<TaskPreview> taskList = getTaskList();
-                        assert taskList != null;
-                        for (TaskPreview task : taskList) {
-                            System.out.println(task.getTitle());
-                        }
-                        break;
-                    case "2":
-                        Task newTask = addTask(userInput);
-                        System.out.println("My new task: " + newTask.getTitle());
-                        break;
-                    case "3":
-                        Task updatedTask = updateTask(userInput);
-                        System.out.println("My updated task: " + updatedTask.getTitle());
-                        break;
-                    case "4":
-                        Task retrievedTask = getTask(userInput);
-                        System.out.println("My retrieved task: " + retrievedTask.getTitle());
-                        break;
-                    case "5":
-                        boolean isDeleted = deleteTask(userInput);
-                        if(isDeleted) {
-                            System.out.println("My task was deleted");
-                        } else {
-                            System.out.println("Wasn't deleted");
-                        }
-                        break;
-                    case "6":
-                        break;
-                    default:
-                        System.out.println("Invalid entry.");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public TaskService() throws IOException {
+        Socket socket = new Socket("localhost", 8080);
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        ois = new ObjectInputStream(socket.getInputStream());
+        oos.flush();
     }
 
-    public static ArrayList<TaskPreview> getTaskList() {
+//    public static void main(String[] args) {
+//        try {
+//            socket = new Socket("localhost", 8080);
+//            System.out.println("Connected to the server.");
+//
+//            oos = new ObjectOutputStream(socket.getOutputStream());
+//            ois = new ObjectInputStream(socket.getInputStream());
+//            oos.flush();
+//
+//            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+//
+//            while (true) {
+//                System.out.println("Please choose an action:");
+//                System.out.println("1. View All Tasks");
+//                System.out.println("2. Add a New Task");
+//                System.out.println("3. Update a Task");
+//                System.out.println("4. Get a Task");
+//                System.out.println("5. Delete a Task");
+//                System.out.println("6. Exit");
+//                System.out.print("Enter your choice: ");
+//
+//                String choice = userInput.readLine();
+//
+//                switch(choice) {
+//                    case "1":
+//                        ArrayList<TaskPreview> taskList = getTaskList();
+//                        assert taskList != null;
+//                        for (TaskPreview task : taskList) {
+//                            System.out.println(task.getTitle());
+//                        }
+//                        break;
+//                    case "2":
+//                        Task newTask = addTask(userInput);
+//                        System.out.println("My new task: " + newTask.getTitle());
+//                        break;
+//                    case "3":
+//                        Task updatedTask = updateTask(userInput);
+//                        System.out.println("My updated task: " + updatedTask.getTitle());
+//                        break;
+//                    case "4":
+//                        Task retrievedTask = getTask(userInput);
+//                        System.out.println("My retrieved task: " + retrievedTask.getTitle());
+//                        break;
+//                    case "5":
+//                        boolean isDeleted = deleteTask(userInput);
+//                        if(isDeleted) {
+//                            System.out.println("My task was deleted");
+//                        } else {
+//                            System.out.println("Wasn't deleted");
+//                        }
+//                        break;
+//                    case "6":
+//                        break;
+//                    default:
+//                        System.out.println("Invalid entry.");
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public synchronized static ArrayList<TaskPreview> getTaskList() {
         try {
             // Send the request to the server
-            oos.writeObject("getTaskList");  // send fetchAll request
+            oos.writeObject("getTaskList");
             oos.flush();
 
             // Receive the task list from the server
-            ArrayList<TaskPreview> taskList = (ArrayList<TaskPreview>) ois.readObject();
-            return taskList;
+            return (ArrayList<TaskPreview>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error fetching task list: " + e.getMessage());
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
 
-    public static Task getTask(BufferedReader userInput) {
-        Task retrievedTask = null;
+    public synchronized static Task getTask(int taskId) {
         try {
             // Send the request to the server
             oos.writeObject("getTask");
             oos.flush();
 
-            //Accept user input and create Task obj
-            System.out.println("Enter id of Task to Retrieve: ");
-            String taskId = userInput.readLine();
-            oos.writeObject(taskId);
+            // Send id of task obj to retrieve
+            oos.writeInt(taskId);
             oos.flush();
 
-            //Receive task response
-            retrievedTask = (Task) ois.readObject();
+            // Receive task response
+            return (Task) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            return new Task.Builder("This task is an error").build();
         }
-        return retrievedTask;
     }
 
-    public static Task addTask(BufferedReader userInput) {
-        Task newTask = null;
+    public synchronized static Task addTask(Task newTask) {
         try {
             // Send the request to the server
             oos.writeObject("addTask");
             oos.flush();
 
-            //Accept user input and create Task obj
-            System.out.println("Enter Task Title: ");
-            String title = userInput.readLine();
-            newTask = new Task.Builder(title).build();
-
-            //Send new task obj to server
-            System.out.println("Sending task: " + newTask.getTitle());
+            // Send new task obj to server
             oos.writeObject(newTask);
             oos.flush();
 
-            //Receive task response
-            newTask = (Task) ois.readObject();
+            // Receive task response
+            return (Task) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            return new Task.Builder("This task is an error").build();
         }
-        return newTask;
     }
 
-    public static Task updateTask(BufferedReader userInput) {
-        Task updatedTask = null;
+    public synchronized static Task updateTask(int taskId, Task updatedTask) {
         try {
             // Send the request to the server
             oos.writeObject("updateTask");
             oos.flush();
 
-            //Accept user input and create Task obj
-            System.out.println("Enter Task Id of Task to Update: ");
-            String title = userInput.readLine();
-            updatedTask = null;
+            // Send taskId to the server
+            oos.writeInt(taskId);
+            oos.flush();
 
-            //Send new task obj to server
-            System.out.println("Sending task: " + updatedTask.getTitle());
+            //Send updated task obj to server
             oos.writeObject(updatedTask);
             oos.flush();
 
-            //Receive task response
-            updatedTask = (Task) ois.readObject();
+            // Receive task response
+            return (Task) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            return new Task.Builder("This task is an error").build();
         }
-        return updatedTask;
     }
 
-    public static boolean deleteTask(BufferedReader userInput) {
-        boolean isDeleted = false;
+    public synchronized static boolean deleteTask(int taskId) {
         try {
-            //Send the request to the server
+            // Send the request to the server
             oos.writeObject("deleteTask");
             oos.flush();
 
-            //Accept user input and create Task obj
-            System.out.println("Enter id of Task to Delete: ");
-            String taskId = userInput.readLine();
-            oos.writeObject(taskId);
+            // Send id of task to be deleted
+            oos.writeInt(taskId);
             oos.flush();
 
-            //Receive delete status from server
-            isDeleted = ois.readBoolean();
+            // Receive delete status from server
+            return ois.readBoolean();
         } catch (IOException e) {
+            System.err.println("Error deleting task: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
-        return isDeleted;
     }
 }
