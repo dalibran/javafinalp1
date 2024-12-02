@@ -51,10 +51,7 @@ public class Server {
 
                             switch (action) {
                                 case "getTaskList": {
-                                    ArrayList<TaskPreview >taskList = getTaskList();
-                                    for (TaskPreview task : taskList) {
-                                        System.out.println(task.getTitle());
-                                    }
+                                    ArrayList<TaskPreview> taskList = getTaskList();
                                     oos.reset();
                                     oos.writeObject(taskList);
                                     oos.flush();
@@ -62,16 +59,21 @@ public class Server {
                                 }
                                 case "addTask": {
                                     Task newTask = (Task) ois.readObject();
-                                    Task returnedTask = addTask(newTask);
-                                    oos.writeObject(returnedTask);
+                                    oos.writeObject(addTask(newTask));
                                     oos.flush();
                                     oos.reset();
                                     break;
                                 }
-                                case "updateTask":
+                                case "updateTask": {
+                                    int id = ois.readInt();
+                                    Task updatedTask = (Task) ois.readObject();
+                                    oos.writeObject(updateTask(id, updatedTask));
+                                    oos.flush();
+                                    oos.reset();
                                     break;
+                                }
                                 case "getTask": {
-                                    int id = Integer.parseInt((String) ois.readObject());
+                                    int id = ois.readInt();
                                     Task task = getTask(id);
                                     oos.writeObject(task);
                                     oos.flush();
@@ -79,7 +81,7 @@ public class Server {
                                     break;
                                 }
                                 case "deleteTask": {
-                                    int id = Integer.parseInt((String) ois.readObject());
+                                    int id = ois.readInt();
                                     boolean deleteStatus = deleteTask(id);
                                     oos.writeBoolean(deleteStatus);
                                     oos.flush();

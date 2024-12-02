@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d73c01d-4c66-465f-82ea-d748ed947994" name="Changes" comment="Added toString methods in enum, for improved FXML text display&#10;&#10;Example Usage:&#10;Status status //holds Status enum type&#10;String statusString status.toString() //converts enum to string">
+    <list default="true" id="6d73c01d-4c66-465f-82ea-d748ed947994" name="Changes" comment="Big changes are adding client/server functionality for getting and deleting tasks. Also fixed this annoying bug with duplicate tasks appearing in the taskList. Some other small changes, and I updated the UML design as well.&#10;&#10;- added methods in client/server for getTask, deleteTask&#10;- fixed issue in TaskPreview constructor where variables weren't being assigned using Task getters&#10;- fixed bug in getTaskList where duplicate tasks were added to the list&#10;- adjusted deleteTask in TaskManager for more clear return call when task is deleted&#10;- added getTask functionality to client/server&#10;- added deleteTask functionality to client/server&#10;- deleted some test code in Main&#10;- clean up print statements used for testing in client and server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskPreview.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uml/class.puml" beforeDir="false" afterPath="$PROJECT_DIR$/uml/class.puml" afterDir="false" />
     </list>
@@ -28,6 +26,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2p5h4BzirTpzxB6BW1VwunNOC8y" />
@@ -38,21 +41,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "client-server",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "terminal"
   }
-}</component>
-  <component name="RunManager" selected="Application.TaskService">
+}]]></component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.HelloApplication" />
       <module name="javafinalp1" />
@@ -131,9 +134,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TaskService" />
-        <item itemvalue="Application.Server" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.TaskService" />
         <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.TaskManagerApp" />
       </list>
@@ -176,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732935978806</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Big changes are adding client/server functionality for getting and deleting tasks. Also fixed this annoying bug with duplicate tasks appearing in the taskList. Some other small changes, and I updated the UML design as well.&#10;&#10;- added methods in client/server for getTask, deleteTask&#10;- fixed issue in TaskPreview constructor where variables weren't being assigned using Task getters&#10;- fixed bug in getTaskList where duplicate tasks were added to the list&#10;- adjusted deleteTask in TaskManager for more clear return call when task is deleted&#10;- added getTask functionality to client/server&#10;- added deleteTask functionality to client/server&#10;- deleted some test code in Main&#10;- clean up print statements used for testing in client and server">
+      <created>1732944061426</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732944061426</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -196,7 +206,8 @@
     <MESSAGE value="Major:&#10;- implemented working client-server functionality&#10;- client-server sends/receives task list obj&#10;- client-server sends/receives task objs&#10;- user is able to make multiple server requests within the same session&#10;- implemented getTaskList within TaskManager&#10;- implemented updateTask, addTask, and deleteTask&#10;&#10;Minor:&#10;- refactored getTaskList to use HashMap instead of ArrayList for easier retrieval of tasks by key&#10;- removed id member variable and getId method from Content&#10;- added Serializable interface to Content so that we can pass objs through the server" />
     <MESSAGE value="Minor changes and 1 bug fix&#10;- changed getTaskList call on Server to print titles and reset the object buffer&#10;- removed toString methods in Task and TaskPreview&#10;- removed some code used to troubleshoot failed object transfer between client and server&#10;- fixed bug where Task objects weren't sent to client" />
     <MESSAGE value="Added toString methods in enum, for improved FXML text display&#10;&#10;Example Usage:&#10;Status status //holds Status enum type&#10;String statusString status.toString() //converts enum to string" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added toString methods in enum, for improved FXML text display&#10;&#10;Example Usage:&#10;Status status //holds Status enum type&#10;String statusString status.toString() //converts enum to string" />
+    <MESSAGE value="Big changes are adding client/server functionality for getting and deleting tasks. Also fixed this annoying bug with duplicate tasks appearing in the taskList. Some other small changes, and I updated the UML design as well.&#10;&#10;- added methods in client/server for getTask, deleteTask&#10;- fixed issue in TaskPreview constructor where variables weren't being assigned using Task getters&#10;- fixed bug in getTaskList where duplicate tasks were added to the list&#10;- adjusted deleteTask in TaskManager for more clear return call when task is deleted&#10;- added getTask functionality to client/server&#10;- added deleteTask functionality to client/server&#10;- deleted some test code in Main&#10;- clean up print statements used for testing in client and server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Big changes are adding client/server functionality for getting and deleting tasks. Also fixed this annoying bug with duplicate tasks appearing in the taskList. Some other small changes, and I updated the UML design as well.&#10;&#10;- added methods in client/server for getTask, deleteTask&#10;- fixed issue in TaskPreview constructor where variables weren't being assigned using Task getters&#10;- fixed bug in getTaskList where duplicate tasks were added to the list&#10;- adjusted deleteTask in TaskManager for more clear return call when task is deleted&#10;- added getTask functionality to client/server&#10;- added deleteTask functionality to client/server&#10;- deleted some test code in Main&#10;- clean up print statements used for testing in client and server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

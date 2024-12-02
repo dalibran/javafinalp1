@@ -57,11 +57,12 @@ public class Task extends Content {
         private String description;
         private LocalDate createdAt;
         private LocalDate dueDate;
-        private Status currentStatus = Status.TODO;
+        private Status currentStatus;
 
         public Builder(String title) {
             this.title = validateTitle(title);
             this.createdAt = LocalDate.now();
+            this.currentStatus = Status.TODO;
         }
 
         public Builder description(String description) {

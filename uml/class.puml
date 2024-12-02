@@ -38,6 +38,17 @@ class Task {
 }
 
 class Builder {
+    - int TITLE_MAX_LENGTH
+    - String title
+    - String description
+    - LocalDate createdAt
+    - LocalDate dueDate
+    - Status currentStatus
+    + Builder description()
+    + Builder dueDate()
+    + Task build()
+    - String validateTitle()
+
 }
 
 class TaskPreview {
@@ -115,7 +126,7 @@ TaskManager o-- Task
 TaskManager o-- TaskPreview
 TaskController o-- TaskService: Uses
 Task --> Status
-Task --> Builder
+Task -- Builder
 TaskPreview --> Status
 TaskListView o-- TaskController
 TaskDetailView o-- TaskController
