@@ -138,7 +138,7 @@ public class TaskService {
             oos.writeInt(taskId);
             oos.flush();
 
-            //Send updated task obj to server
+            // Send updated task obj to server
             oos.writeObject(updatedTask);
             oos.flush();
 

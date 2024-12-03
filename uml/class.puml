@@ -63,18 +63,6 @@ class TaskPreview {
 class Comment {
 }
 
-class User {
-    - int userId
-    - String password
-    - String username
-    + void setUserId()
-    + int getUserId()
-    + void setUsername()
-    + String getUsername()
-    + void setPassword()
-    + String getPassword()
-}
-
 class TaskController {
     + getTaskList()
     + onTaskClick()
@@ -121,7 +109,6 @@ class TaskDetailView {
 Content <|-- Task
 Content <|-- Comment
 Task *-- Comment
-User *-- Task
 TaskManager o-- Task
 TaskManager o-- TaskPreview
 TaskController o-- TaskService: Uses
