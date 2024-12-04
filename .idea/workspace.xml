@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d73c01d-4c66-465f-82ea-d748ed947994" name="Changes" comment="Finalized client-server code and refactored client so it can be called as a variable in TaskController&#10;&#10;- added socket details to client constructor&#10;- finished updateTask method&#10;- refactored client methods to avoid returning null in event of error&#10;- made client methods thread-safe by adding synchronized&#10;- added a bunch of test code to Main, it can be deleted or adjusted as needed&#10;- added Builder class to uml diagram">
+    <list default="true" id="6d73c01d-4c66-465f-82ea-d748ed947994" name="Changes" comment="Added Readme&#10;&#10;- fixed formatting issue on TaskService&#10;- updated UML by removing User class">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskManagerApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/todo/javafinalp1/TaskListView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/HelloApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/todo/javafinalp1/TaskPreview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/todo/javafinalp1/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +26,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -28,6 +38,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2p5h4BzirTpzxB6BW1VwunNOC8y" />
   <component name="ProjectLevelVcsManager">
@@ -44,27 +57,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Merging client-server",
+    "git-widget-placeholder": "main",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.HelloApplication" />
-      <module name="javafinalp1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.todo.javafinalp1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.TaskApplication">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.Main" />
       <module name="javafinalp1" />
@@ -91,8 +91,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskManagerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.TaskManagerApp" />
+    <configuration name="TaskApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.TaskApplication" />
       <module name="javafinalp1" />
       <extension name="coverage">
         <pattern>
@@ -104,8 +104,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.TaskService" />
+    <configuration name="TaskListView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.TaskListView" />
+      <module name="javafinalp1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.todo.javafinalp1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskManagerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.todo.javafinalp1.TaskManagerApp" />
       <module name="javafinalp1" />
       <extension name="coverage">
         <pattern>
@@ -130,11 +143,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Server" />
-        <item itemvalue="Application.TaskService" />
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="Application.TaskApplication" />
         <item itemvalue="Application.TaskManagerApp" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.TaskListView" />
       </list>
     </recent_temporary>
   </component>
@@ -189,7 +202,21 @@
       <option name="project" value="LOCAL" />
       <updated>1733117607144</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Adding Jesse's TaskController work to my pull request">
+      <created>1733119456914</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733119456914</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added Readme&#10;&#10;- fixed formatting issue on TaskService&#10;- updated UML by removing User class">
+      <created>1733185015909</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733185015909</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +238,9 @@
     <MESSAGE value="Added toString methods in enum, for improved FXML text display&#10;&#10;Example Usage:&#10;Status status //holds Status enum type&#10;String statusString status.toString() //converts enum to string" />
     <MESSAGE value="Big changes are adding client/server functionality for getting and deleting tasks. Also fixed this annoying bug with duplicate tasks appearing in the taskList. Some other small changes, and I updated the UML design as well.&#10;&#10;- added methods in client/server for getTask, deleteTask&#10;- fixed issue in TaskPreview constructor where variables weren't being assigned using Task getters&#10;- fixed bug in getTaskList where duplicate tasks were added to the list&#10;- adjusted deleteTask in TaskManager for more clear return call when task is deleted&#10;- added getTask functionality to client/server&#10;- added deleteTask functionality to client/server&#10;- deleted some test code in Main&#10;- clean up print statements used for testing in client and server" />
     <MESSAGE value="Finalized client-server code and refactored client so it can be called as a variable in TaskController&#10;&#10;- added socket details to client constructor&#10;- finished updateTask method&#10;- refactored client methods to avoid returning null in event of error&#10;- made client methods thread-safe by adding synchronized&#10;- added a bunch of test code to Main, it can be deleted or adjusted as needed&#10;- added Builder class to uml diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finalized client-server code and refactored client so it can be called as a variable in TaskController&#10;&#10;- added socket details to client constructor&#10;- finished updateTask method&#10;- refactored client methods to avoid returning null in event of error&#10;- made client methods thread-safe by adding synchronized&#10;- added a bunch of test code to Main, it can be deleted or adjusted as needed&#10;- added Builder class to uml diagram" />
+    <MESSAGE value="Adding Jesse's TaskController work to my pull request" />
+    <MESSAGE value="Added Readme&#10;&#10;- fixed formatting issue on TaskService&#10;- updated UML by removing User class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Readme&#10;&#10;- fixed formatting issue on TaskService&#10;- updated UML by removing User class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

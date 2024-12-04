@@ -1,5 +1,6 @@
 package com.todo.javafinalp1;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,6 +49,7 @@ public class TaskManager {
 
     Task task = new Task.Builder("Create First Task")
             .description("This is a an example task used to guide you through the process of creating your first task.")
+            .dueDate(LocalDate.now().plusDays(1))
             .build();
     Task firstTask = addTask(task);
 }

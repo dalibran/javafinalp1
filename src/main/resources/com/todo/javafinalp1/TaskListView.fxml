@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.todo.javafinalp1.TaskController">
+    <!-- Title -->
+    <Text fx:id="pageTitle" text="Your Tasks" style="-fx-font-size: 24px; -fx-font-weight: bold;"
+          AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+
+    <!-- Header for ListView -->
+    <HBox spacing="50" style="-fx-padding: 5; -fx-border-color: gray; -fx-border-width: 1; -fx-background-color: #f4f4f4;"
+          AnchorPane.topAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <Label text="Title" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+        <Label text="Status" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+        <Label text="Due Date" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+    </HBox>
+
+    <!-- ListView for tasks -->
+    <ListView fx:id="taskListView" prefWidth="400.0" prefHeight="400.0"
+              AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+
+    <!-- Add Task Button -->
+    <Button fx:id="addTaskButton" text="Add Task" style="-fx-font-size: 14px;"
+            onAction="#handleAddTask" AnchorPane.topAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+</AnchorPane>
