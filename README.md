@@ -30,13 +30,20 @@ After cloning the repo to your local machine and opening the project in your IDE
 
 Then, you can start the JavaFX views.
 
-- Run the Main() in Main.java
+- Run the Main() TaskApplication.java
 
 ## Challenges
 
 1. Collaborating on a shared codebase was a significant challenge, as most of us didn't have experience doing so. This
  was eventually mitigated by using Github and learning about feature branches and pull requests. One of our group
 members in a team lead capacity would review the pull requests to ensure nothing important would be deleted as new code was merged.
+2. Using the server lecture as a baseline, converting the functionality to pass objects back and forth was initially very challenging.
+It took a while to figure out the cadence between sending objects from the client and receiving them on the server. Where you define your
+readObject() and writeObject() has to be precise, otherwise you'll get unexpected results when passing objects back and forth.
+3. Switching views in JavaFX was also very challenging, and it took a lot of trial and error to discover that using a single controller
+to manage all the views was impractical. Moving to individual controllers for each view had a big impact on ease of implementation. Also,
+defining scenes for each view within TaskApplication made it significantly easier to switch views, and the resulting implementation
+was easier to read and maintain.
 
 ## Anything Not Working?
 

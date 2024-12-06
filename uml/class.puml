@@ -1,20 +1,69 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class Content {
-    - int id
-    - String title
-    - String description
-    - User creator
-    - Date createdAt
-    + void setId(int id)
-    + int getId()
-    + void setTitle(String title)
-    + String getTitle()
-    + void setDescription(String description)
-    + String getDescription()
-    + void setCreatedAt(Date date)
-    + Date getCreatedAt()
+class TaskApplication {
+    + start(Stage primaryStage)
+}
+
+class TaskController {
+    - ListView<HBox> taskListView
+    - Scene addScene
+    - Scene editScene
+    + Scene setAddScene(Scene addScene)
+    + initialize()
+    - openTaskDetail(int taskId)
+    - handleAddTask()
+    - handleRefreshTaskList()
+    - HBox createTaskItem(String title, String status, String dueDate, int taskId)
+}
+
+class TaskAddController {
+    - TextField titleField
+    - TextArea descriptionArea
+    - ChoiceBox statusChoiceBox
+    - DatePicker dueDatePicker
+    - Label creationDateLabel
+    - Scene listScene
+    + setListScene(Scene listScene)
+    + initialize()
+    - handleSaveTask()
+    - loadTaskListView()
+}
+
+class TaskEditController {
+    - Scene listScene
+    + setListScene(Scene listScene)
+    - handleEditTask()
+    - handleDeleteTask()
+    - loadTaskListView()
+}
+
+class TaskService {
+    + List<TaskPreview> getTaskList()
+    + Task getTask(int taskId)
+    + Task addTask(Task newTask)
+    + Task updateTask(Task updatedTask)
+    + boolean deleteTask(int taskId)
+}
+
+class Server {
+    + List<TaskPreview> getTaskList()
+    + Task getTask(int taskId)
+    + Task addTask(Task task)
+    + Task updateTask(Task task)
+    + boolean deleteTask(int id)
+}
+
+class TaskManager {
+    - HashMap<Task> tasks
+    - ArrayList<TaskPreview> taskList
+    - int counter
+    - int incrementId()
+    + List<TaskPreview> getTaskList()
+    + Task getTask(int id)
+    + Task addTask(Task task)
+    + Task updateTask(Task task)
+    + boolean deleteTask(int id)
 }
 
 enum Status {
@@ -63,47 +112,20 @@ class TaskPreview {
 class Comment {
 }
 
-class TaskController {
-    + getTaskList()
-    + onTaskClick()
-    + onAddTaskButtonClick()
-    + onUpdateTaskButtonClick()
-    + onAddCommentButtonClick()
-    + onDeleteTaskButtonClick()
-}
-
-class TaskService {
-    + List<TaskPreview> getTaskList()
-    + Task getTask(int taskId)
-    + Task addTask(Task newTask)
-    + Task updateTask(Task updatedTask)
-    + boolean deleteTask(int taskId)
-}
-
-class Server {
-    + List<TaskPreview> getTaskList()
-    + Task getTask(int taskId)
-    + Task addTask(Task task)
-    + Task updateTask(Task task)
-    + boolean deleteTask(int id)
-}
-
-class TaskManager {
-    - HashMap<Task> tasks
-    - ArrayList<TaskPreview> taskList
-    - int counter
-    - int incrementId()
-    + List<TaskPreview> getTaskList()
-    + Task getTask(int id)
-    + Task addTask(Task task)
-    + Task updateTask(Task task)
-    + boolean deleteTask(int id)
-}
-
-class TaskListView {
-}
-
-class TaskDetailView {
+abstract class Content {
+    - int id
+    - String title
+    - String description
+    - User creator
+    - Date createdAt
+    + void setId(int id)
+    + int getId()
+    + void setTitle(String title)
+    + String getTitle()
+    + void setDescription(String description)
+    + String getDescription()
+    + void setCreatedAt(Date date)
+    + Date getCreatedAt()
 }
 
 Content <|-- Task
@@ -111,12 +133,15 @@ Content <|-- Comment
 Task *-- Comment
 TaskManager o-- Task
 TaskManager o-- TaskPreview
-TaskController o-- TaskService: Uses
 Task --> Status
 Task -- Builder
 TaskPreview --> Status
-TaskListView o-- TaskController
-TaskDetailView o-- TaskController
+TaskController o-- TaskService: Uses
+TaskAddController o-- TaskService: Uses
+TaskEditController o-- TaskService: Uses
+TaskApplication o-- TaskController
+TaskApplication o-- TaskAddController
+TaskApplication o-- TaskEditController
 TaskService o-- Server: Sends Requests
 Server o-- TaskManager: Routes Requests
 
