@@ -69,7 +69,7 @@
         <children>
             <Label text="Created On:" />
             <!-- This text should change to the date the user picked -->
-            <Label text="Current day(Should be replacable)" translateX="45.0" />
+            <Label fx:id="creationDateLabel" translateX="45.0" />
         </children>
     </FlowPane>
     <TextFlow translateY="11.0">

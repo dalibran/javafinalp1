@@ -4,14 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TaskAddController {
     @FXML
@@ -26,10 +24,21 @@ public class TaskAddController {
     @FXML
     private DatePicker dueDatePicker;
 
+    @FXML
+    private Label creationDateLabel;
+
     private static Scene listScene;
 
     public static void setListScene(Scene scene) {
         listScene = scene;
+    }
+
+    @FXML
+    public void initialize() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+        String formattedDate = currentDate.format(formatter);
+        creationDateLabel.setText(formattedDate);
     }
 
     @FXML
