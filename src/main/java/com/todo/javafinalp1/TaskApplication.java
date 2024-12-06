@@ -10,12 +10,19 @@ public class TaskApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("TaskListView.fxml"));
+        Parent listView = FXMLLoader.load(getClass().getResource("TaskListView.fxml"));
+        Parent addView = FXMLLoader.load(getClass().getResource("TaskAddView.fxml"));
 
-        // Setup the scene
-        Scene scene = new Scene(root, 600, 500);
+        // Setup the scenes
+        Scene listScene = new Scene(listView, 600, 500);
+        Scene addScene = new Scene(addView, 600, 500);
+
+        // Create references to scenes in different controllers
+        TaskController.setAddScene(addScene);
+        TaskAddController.setListScene(listScene);
+
         primaryStage.setTitle("Task Manager");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(listScene);
         primaryStage.show();
     }
 

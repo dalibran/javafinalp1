@@ -1,22 +1,20 @@
 package com.todo.javafinalp1;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskController {
 //
@@ -104,7 +102,7 @@ public class TaskController {
 
     @FXML
     private Button addTaskButton;
-
+    private static Scene addScene;
     private TaskService client;
     {
         try {
@@ -114,10 +112,38 @@ public class TaskController {
         }
     }
 
+    public static void setAddScene(Scene scene) {
+        addScene = scene;
+    }
+
     @FXML
     public void initialize() {
         // Populate the ListView with existing tasks from getTaskList()
-        ArrayList<TaskPreview> taskList = client.getTaskList();
+        handleRefreshTaskList();
+    }
+
+    @FXML
+    private void openTaskDetail(int taskId) {
+        Task task = TaskService.getTask(taskId);
+        System.out.println("Task title " + task.getTitle());
+
+        // Handle Add Task button click
+        System.out.println("Edit Task button clicked! Navigate to the Add Task view.");
+        // Logic for navigation or opening a new view goes here
+    }
+
+    @FXML
+    private void handleAddTask(ActionEvent event) {
+        System.out.println("Add task button clicked");
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(addScene);
+    }
+
+    @FXML
+    private void handleRefreshTaskList() {
+        taskListView.getItems().clear();
+        ArrayList<TaskPreview> taskList = TaskService.getTaskList();
+        System.out.println("Got tasklist");
         for (TaskPreview task : taskList) {
             String dueDate;
             if (task.getDueDate() != null) {
@@ -125,20 +151,18 @@ public class TaskController {
             } else {
                 dueDate = "";
             }
-            HBox taskItem = createTaskItem(task.getTitle(), task.getCurrentStatus().toString(), dueDate);
+
+            HBox taskItem = createTaskItem(task.getTitle(), task.getCurrentStatus().toString(), dueDate, task.getTaskId());
+
+            taskItem.setOnMouseClicked(event -> {
+                openTaskDetail(task.getTaskId());
+            });
+
             taskListView.getItems().add(taskItem);
         }
     }
 
-    @FXML
-    private void handleAddTask() {
-        // Handle Add Task button click
-        System.out.println("Add Task button clicked! Navigate to the Add Task view.");
-        // Logic for navigation or opening a new view goes here
-    }
-
-    // Create task items for the FXML ListView
-    private HBox createTaskItem(String title, String status, String dueDate) {
+    private HBox createTaskItem(String title, String status, String dueDate, int taskId) {
         HBox taskItem = new HBox(50); // Match spacing with the header
         taskItem.setStyle("-fx-padding: 5; -fx-border-color: lightgray; -fx-border-width: 0 0 1 0;");
 
@@ -151,7 +175,10 @@ public class TaskController {
         Label dueDateLabel = new Label(dueDate);
         dueDateLabel.setStyle("-fx-font-size: 12px; -fx-pref-width: 150; -fx-alignment: center-left;");
 
-        taskItem.getChildren().addAll(titleLabel, statusLabel, dueDateLabel);
+        Label taskIdLabel = new Label(String.valueOf(taskId));
+        taskIdLabel.setVisible(false);
+
+        taskItem.getChildren().addAll(titleLabel, statusLabel, dueDateLabel, taskIdLabel);
         return taskItem;
     }
 }

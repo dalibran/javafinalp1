@@ -21,7 +21,18 @@
     <ListView fx:id="taskListView" prefWidth="400.0" prefHeight="400.0"
               AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
 
-    <!-- Add Task Button -->
-    <Button fx:id="addTaskButton" text="Add Task" style="-fx-font-size: 14px;"
-            onAction="#handleAddTask" AnchorPane.topAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+    <!-- Button container (HBox for alignment) -->
+    <HBox spacing="10" alignment="CENTER_RIGHT" AnchorPane.topAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <!-- Add Task Button -->
+        <Button fx:id="addTaskButton" text="Add Task" style="-fx-font-size: 14px;"
+                onAction="#handleAddTask" />
+
+        <!-- Refresh Task List Button -->
+        <Button fx:id="handleRefreshTaskList" text="Refresh" style="-fx-font-size: 14px;"
+                 onAction="#handleRefreshTaskList"/>
+    </HBox>
 </AnchorPane>
+
+
+
+

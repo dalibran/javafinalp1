@@ -2,6 +2,7 @@ package com.todo.javafinalp1;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Task extends Content {
     private ArrayList<Comment> comments = new ArrayList<>(5);
@@ -11,9 +12,9 @@ public class Task extends Content {
     private Task(Builder builder) {
         this.title = builder.title;
         this.description = builder.description;
+        this.currentStatus = builder.currentStatus;
         this.createdAt = builder.createdAt;
         this.dueDate = builder.dueDate;
-        this.currentStatus = builder.currentStatus;
     }
 
     @Override
@@ -67,6 +68,15 @@ public class Task extends Content {
 
         public Builder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public Builder currentStatus(String status) {
+            if (status == null) {
+                this.currentStatus = Status.TODO;
+            } else {
+                this.currentStatus = Status.valueOf(status);
+            }
             return this;
         }
 
