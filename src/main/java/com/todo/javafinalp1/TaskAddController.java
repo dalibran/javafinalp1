@@ -68,4 +68,5 @@ public class TaskAddController {
         // Set the new scene as the content of the current stage
         currentStage.setScene(listScene);
     }
+
 }

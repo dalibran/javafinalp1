@@ -12,10 +12,12 @@ public class TaskApplication extends Application {
         // Load the FXML file
         Parent listView = FXMLLoader.load(getClass().getResource("TaskListView.fxml"));
         Parent addView = FXMLLoader.load(getClass().getResource("TaskAddView.fxml"));
+        Parent editView = FXMLLoader.load(getClass().getResource("TaskEditView.fxml"));
 
-        // Setup the scenes
+        // Set up the scenes
         Scene listScene = new Scene(listView, 600, 500);
         Scene addScene = new Scene(addView, 600, 500);
+        Scene  editScene = new Scene(editView, 600, 500);
 
         // Create references to scenes in different controllers
         TaskController.setAddScene(addScene);

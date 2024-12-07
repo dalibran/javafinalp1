@@ -104,6 +104,8 @@ public class TaskController {
     private Button addTaskButton;
     private static Scene addScene;
     private TaskService client;
+    private Scene editScene;
+
     {
         try {
             client = new TaskService();
@@ -128,7 +130,7 @@ public class TaskController {
         System.out.println("Task title " + task.getTitle());
 
         // Handle Add Task button click
-        System.out.println("Edit Task button clicked! Navigate to the Add Task view.");
+        System.out.println("Edit Task button clicked! Navigate to the edit Task view.");
         // Logic for navigation or opening a new view goes here
     }
 
@@ -137,6 +139,28 @@ public class TaskController {
         System.out.println("Add task button clicked");
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.setScene(addScene);
+        //copy and paste?
+    }
+    @FXML
+    private void handleEditTask(ActionEvent event) {
+        System.out.println("Edit task button clicked");
+
+        // Load the edit scene only if it hasn't been loaded yet
+        if (editScene == null) {
+            try {
+                // Load the TaskEditView.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("TaskEditView.fxml"));
+                Parent editRoot = loader.load();  // Load the FXML
+                editScene = new Scene(editRoot);  // Create the scene
+            } catch (IOException e) {
+                e.printStackTrace();  // Handle loading error
+                return;  // Exit if the scene cannot be loaded
+            }
+        }
+
+        // Get the current stage and switch to the edit scene
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(editScene);  // Set the loaded edit scene
     }
 
     @FXML

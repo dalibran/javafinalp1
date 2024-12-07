@@ -4,35 +4,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.todo.javafinalp1.TaskController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.todo.javafinalp1.TaskController">
     <!-- Title -->
-    <Text fx:id="pageTitle" text="Your Tasks" style="-fx-font-size: 24px; -fx-font-weight: bold;"
-          AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+    <Text fx:id="pageTitle" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Your Tasks" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
 
     <!-- Header for ListView -->
-    <HBox spacing="50" style="-fx-padding: 5; -fx-border-color: gray; -fx-border-width: 1; -fx-background-color: #f4f4f4;"
-          AnchorPane.topAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-        <Label text="Title" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
-        <Label text="Status" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
-        <Label text="Due Date" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+    <HBox spacing="50" style="-fx-padding: 5; -fx-border-color: gray; -fx-border-width: 1; -fx-background-color: #f4f4f4;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Title" />
+        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Status" />
+        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Due Date" />
     </HBox>
 
     <!-- ListView for tasks -->
-    <ListView fx:id="taskListView" prefWidth="400.0" prefHeight="400.0"
-              AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+    <ListView fx:id="taskListView" prefHeight="400.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
 
     <!-- Button container (HBox for alignment) -->
-    <HBox spacing="10" alignment="CENTER_RIGHT" AnchorPane.topAnchor="20.0" AnchorPane.rightAnchor="20.0">
+    <HBox alignment="CENTER_RIGHT" spacing="10" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <!-- Add Task Button -->
-        <Button fx:id="addTaskButton" text="Add Task" style="-fx-font-size: 14px;"
-                onAction="#handleAddTask" />
+        <Button fx:id="addTaskButton" onAction="#handleAddTask" style="-fx-font-size: 14px;" text="Add Task" />
 
         <!-- Refresh Task List Button -->
-        <Button fx:id="handleRefreshTaskList" text="Refresh" style="-fx-font-size: 14px;"
-                 onAction="#handleRefreshTaskList"/>
+        <Button fx:id="handleRefreshTaskList" onAction="#handleRefreshTaskList" style="-fx-font-size: 14px;" text="Refresh" />
     </HBox>
+    <Button fx:id="editTaskButton" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleEditTask" prefHeight="30.0" prefWidth="65.0" text="Edit Task" />
 </AnchorPane>
-
-
-
-
