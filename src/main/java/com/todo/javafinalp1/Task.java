@@ -2,25 +2,19 @@ package com.todo.javafinalp1;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Optional;
-import java.util.UUID;
 
 public class Task extends Content {
     private ArrayList<Comment> comments = new ArrayList<>(5);
     private LocalDate dueDate;
     private Status currentStatus;
-    private final String id;
+
     //uses Builder design pattern as constructor to allow for optional params
     private Task(Builder builder) {
-        this.id = UUID.randomUUID().toString();
         this.title = builder.title;
         this.description = builder.description;
         this.currentStatus = builder.currentStatus;
         this.createdAt = builder.createdAt;
         this.dueDate = builder.dueDate;
-    }
-    public String getId() {
-        return id;
     }
 
     @Override

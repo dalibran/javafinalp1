@@ -128,14 +128,14 @@ public class TaskService {
         }
     }
 
-    public synchronized static Task updateTask(String taskId, Task updatedTask) {
+    public synchronized static Task updateTask(int taskId, Task updatedTask) {
         try {
             // Send the request to the server
             oos.writeObject("updateTask");
             oos.flush();
 
-            // Send taskId (now String) to the server
-            oos.writeObject(taskId);
+            // Send taskId to the server
+            oos.writeInt(taskId);
             oos.flush();
 
             // Send updated task obj to server

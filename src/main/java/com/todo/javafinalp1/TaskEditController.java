@@ -52,7 +52,7 @@ public class TaskEditController {
                 .build();
 
         // Use TaskService to update the task on the server
-        Task updatedTaskResponse = TaskService.updateTask(taskToEdit.getId(), updatedTask);
+        Task updatedTaskResponse = TaskService.updateTask(1, updatedTask);
 
         // Check for update success and close the window if successful
         if (updatedTaskResponse != null) {
