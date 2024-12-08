@@ -4,22 +4,25 @@
 autonumber
 actor User
 participant TaskListView as UI
-participant TaskController
+participant TaskListController
+participant TaskAddController
 participant TaskService
 participant Server
 participant TaskManager
 participant Task
 
-User -> UI: Create Task
-UI -> TaskController: onAddTaskButtonClick()
-TaskController -> TaskService: addTask()
+User -> UI: Clicks Add Task
+UI -> TaskListController: handleAddTask()
+TaskListController -> TaskAddController: switchScene()
+TaskAddController -> TaskService: addTask()
 TaskService -> Server: addTask()
 Server -> TaskManager: addTask()
 TaskManager -> Task: new Task()
 Task --> TaskManager: Task
 TaskManager --> Server: Task
 Server --> TaskService: Task
-TaskService --> TaskController: Task
-TaskController -> UI: updateUI()
+TaskService --> TaskAddController: Task
+TaskAddController --> TaskListController: switchScene()
+TaskListController -> UI: handleRefreshTaskList()
 
 @enduml

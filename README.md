@@ -36,17 +36,23 @@ Then, you can start the JavaFX views.
 
 1. Collaborating on a shared codebase was a significant challenge, as most of us didn't have experience doing so. This
  was eventually mitigated by using Github and learning about feature branches and pull requests. One of our group
-members in a team lead capacity would review the pull requests to ensure nothing important would be deleted as new code was merged.
-2. Using the server lecture as a baseline, converting the functionality to pass objects back and forth was initially very challenging.
+members acted as a team lead and would review pull requests to ensure nothing important would be deleted as new code was merged.
+2. Using the lecture as a baseline, converting the server functionality to pass objects back and forth was initially very challenging.
 It took a while to figure out the cadence between sending objects from the client and receiving them on the server. Where you define your
-readObject() and writeObject() has to be precise, otherwise you'll get unexpected results when passing objects back and forth.
+readObject() and writeObject() methods has to be precise, otherwise you'll get unexpected results when passing objects back and forth.
 3. Switching views in JavaFX was also very challenging, and it took a lot of trial and error to discover that using a single controller
 to manage all the views was impractical. Moving to individual controllers for each view had a big impact on ease of implementation. Also,
 defining scenes for each view within TaskApplication made it significantly easier to switch views, and the resulting implementation
 was easier to read and maintain.
+4. When running a JavaFX app, all views initialize at runtime, which was a problem when attempting to edit a task. At runtime, we don't know
+which task we want to edit, so we can't initialize that view with the correct information. Eventually, we had to dynamically load
+the TaskEditView upon clicking a task, which allowed us to initialize the view properly.
+5. Originally, there was no way for TaskEditController to know which task a user chose from TaskListView to edit. When the app switched JavaFX views,
+we didn't know how to pass the desired task information so the view could initialize properly. Eventually, we 
+created a new class TaskEditContext, which uses the singleton design pattern and acts as a medium to share
+Task details between the TaskListView and the TaskDetailView. 
 
 ## Anything Not Working?
 
-1. The JavaFX views currently don't work and haven't been connected to the event handler. The data, data storage, client, and
-server classes have all been implemented, so the event handler class (TaskController) can pass requests to the client, and those
-requests are returned accurately. However, as of now, that information isn't presented in the JavaFX view.
+1. We didn't have time to implement comments within the JavaFX UI, although the underlying functionality exists and works
+correctly on the backend.

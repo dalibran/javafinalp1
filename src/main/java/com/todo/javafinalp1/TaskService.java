@@ -15,68 +15,6 @@ public class TaskService {
         oos.flush();
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            socket = new Socket("localhost", 8080);
-//            System.out.println("Connected to the server.");
-//
-//            oos = new ObjectOutputStream(socket.getOutputStream());
-//            ois = new ObjectInputStream(socket.getInputStream());
-//            oos.flush();
-//
-//            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-//
-//            while (true) {
-//                System.out.println("Please choose an action:");
-//                System.out.println("1. View All Tasks");
-//                System.out.println("2. Add a New Task");
-//                System.out.println("3. Update a Task");
-//                System.out.println("4. Get a Task");
-//                System.out.println("5. Delete a Task");
-//                System.out.println("6. Exit");
-//                System.out.print("Enter your choice: ");
-//
-//                String choice = userInput.readLine();
-//
-//                switch(choice) {
-//                    case "1":
-//                        ArrayList<TaskPreview> taskList = getTaskList();
-//                        assert taskList != null;
-//                        for (TaskPreview task : taskList) {
-//                            System.out.println(task.getTitle());
-//                        }
-//                        break;
-//                    case "2":
-//                        Task newTask = addTask(userInput);
-//                        System.out.println("My new task: " + newTask.getTitle());
-//                        break;
-//                    case "3":
-//                        Task updatedTask = updateTask(userInput);
-//                        System.out.println("My updated task: " + updatedTask.getTitle());
-//                        break;
-//                    case "4":
-//                        Task retrievedTask = getTask(userInput);
-//                        System.out.println("My retrieved task: " + retrievedTask.getTitle());
-//                        break;
-//                    case "5":
-//                        boolean isDeleted = deleteTask(userInput);
-//                        if(isDeleted) {
-//                            System.out.println("My task was deleted");
-//                        } else {
-//                            System.out.println("Wasn't deleted");
-//                        }
-//                        break;
-//                    case "6":
-//                        break;
-//                    default:
-//                        System.out.println("Invalid entry.");
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public synchronized static ArrayList<TaskPreview> getTaskList() {
         try {
             // Send the request to the server

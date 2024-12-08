@@ -54,9 +54,10 @@
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Todo" />
                         <String fx:value="In Progress" />
+                        <String fx:value="Complete" />
+                        <String fx:value="Closed" />
                     </FXCollections>
                 </items>
-                <value>Todo</value>
             </ChoiceBox>
         </children>
     </TextFlow>
@@ -78,10 +79,15 @@
     </TextFlow>
 
     <!-- Save and Cancel Buttons -->
-    <AnchorPane maxWidth="266.0" prefHeight="25.0" prefWidth="266.0" translateY="10.0">
-        <children>
-            <Button fx:id="saveTask" layoutX="100.0" mnemonicParsing="false" onAction="#handleSaveTask" prefHeight="25.0" prefWidth="96.0" text="Save" textFill="#3f9048" translateX="-100.0" />
-            <Button fx:id="cancelTask" layoutX="200.0" mnemonicParsing="false" onAction="#handleCancelTask" prefHeight="25.0" prefWidth="96.0" text="Cancel" textFill="#f04e4e" translateX="10.0" />
-        </children>
-    </AnchorPane>
+    <HBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <Button fx:id="saveTask" layoutX="100.0" mnemonicParsing="false" onAction="#handleSaveTask" prefHeight="25.0" prefWidth="96.0" text="Save" textFill="#3f9048" translateX="10.0" />
+        <Button fx:id="deleteTask" layoutX="200.0" mnemonicParsing="false" onAction="#handleDeleteTask" prefHeight="25.0" prefWidth="96.0" text="Delete" textFill="#f04e4e" translateX="10.0" />
+        <Button fx:id="cancel" layoutX="300.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="96.0" text="Cancel" textFill="#f04e4e" translateX="10.0" />
+    </HBox>
+
+<!--    <AnchorPane maxWidth="266.0" prefHeight="25.0" prefWidth="266.0" translateY="10.0">-->
+<!--        <children>-->
+<!--          -->
+<!--        </children>-->
+<!--    </AnchorPane>-->
 </VBox>

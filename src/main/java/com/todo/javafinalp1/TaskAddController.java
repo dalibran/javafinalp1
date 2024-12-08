@@ -6,27 +6,20 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class TaskAddController {
+public class TaskAddController extends Controller {
     @FXML
     private TextField titleField;
-
     @FXML
     private TextArea descriptionArea;
-
     @FXML
     private ChoiceBox statusChoiceBox;
-
     @FXML
     private DatePicker dueDatePicker;
-
     @FXML
     private Label creationDateLabel;
-
     private static Scene listScene;
 
     public static void setListScene(Scene scene) {
@@ -58,15 +51,7 @@ public class TaskAddController {
 
         Task returnedTask = TaskService.addTask(newTask);
 
-        loadTaskListView(event);
+        switchScene(listScene, event);
         System.out.println("Task was added: " + returnedTask.getTitle());
     }
-
-    protected void loadTaskListView(ActionEvent event) {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Set the new scene as the content of the current stage
-        currentStage.setScene(listScene);
-    }
-
 }

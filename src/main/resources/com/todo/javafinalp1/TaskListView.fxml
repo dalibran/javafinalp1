@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.todo.javafinalp1.TaskController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.todo.javafinalp1.TaskListController">
     <!-- Title -->
     <Text fx:id="pageTitle" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Your Tasks" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
 
@@ -26,5 +26,4 @@
         <!-- Refresh Task List Button -->
         <Button fx:id="handleRefreshTaskList" onAction="#handleRefreshTaskList" style="-fx-font-size: 14px;" text="Refresh" />
     </HBox>
-    <Button fx:id="editTaskButton" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleEditTask" prefHeight="30.0" prefWidth="65.0" text="Edit Task" />
 </AnchorPane>

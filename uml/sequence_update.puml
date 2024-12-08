@@ -3,23 +3,24 @@
 
 autonumber
 actor User
-participant TaskDetailView as UI
-participant TaskController
+participant TaskEditView as UI
+participant TaskListView
+participant TaskListController
+participant TaskEditController
 participant TaskService
 participant Server
-participant TaskManager
-participant Task
+participant TaskMana
 
-User -> UI: Update Task (Add Comment)
-UI -> TaskController: onAddCommentButtonClick()
-TaskController -> TaskService: updateTask()
+User -> UI: Update Task
+UI -> TaskEditController: handleUpdateTask()
+TaskEditController -> TaskService: updateTask()
 TaskService -> Server: updateTask()
 Server -> TaskManager: updateTask()
-TaskManager -> Task: comments.add(comment)
-Task --> TaskManager: Task
+TaskManager -> TaskManager: HashMap.put()
 TaskManager --> Server: Task
 Server --> TaskService: Task
-TaskService --> TaskController: Task
-TaskController -> UI: updateUI()
+TaskService --> TaskEditController: Task
+TaskEditController --> TaskListController: switchScene()
+TaskListController --> TaskListView: handleRefreshTaskList()
 
 @enduml

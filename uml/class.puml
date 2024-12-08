@@ -5,16 +5,30 @@ class TaskApplication {
     + start(Stage primaryStage)
 }
 
-class TaskController {
+class TaskEditContext {
+    - TaskEditContext instance
+    - int currentTaskId
+    - Task currentTaskId
+    + TaskEditContext getInstance()
+    + Task getCurrentTask()
+    + void setCurrentTask()
+    + int getCurrentTaskId()
+    + void setCurrentTaskId()
+
+}
+
+class TaskListController {
     - ListView<HBox> taskListView
     - Scene addScene
     - Scene editScene
-    + Scene setAddScene(Scene addScene)
-    + initialize()
-    - openTaskDetail(int taskId)
-    - handleAddTask()
-    - handleRefreshTaskList()
+    + void setAddScene(Scene addScene)
+    + void setEditScene(Scene editScene)
+    + void initialize()
+    - void openTaskDetail(int taskId)
+    - void handleAddTask()
+    - void handleRefreshTaskList()
     - HBox createTaskItem(String title, String status, String dueDate, int taskId)
+    - void dynamicallyLoadEditView()
 }
 
 class TaskAddController {
@@ -24,21 +38,34 @@ class TaskAddController {
     - DatePicker dueDatePicker
     - Label creationDateLabel
     - Scene listScene
-    + setListScene(Scene listScene)
-    + initialize()
-    - handleSaveTask()
-    - loadTaskListView()
+    + void setListScene(Scene listScene)
+    + void initialize()
+    - void handleSaveTask()
 }
 
 class TaskEditController {
+    - TextField titleField
+    - TextArea descriptionArea
+    - ChoiceBox statusChoiceBox
+    - DatePicker dueDatePicker
+    - Label creationDateLabel
+    - Task taskToEdit
+    - int currentTaskId
     - Scene listScene
-    + setListScene(Scene listScene)
-    - handleEditTask()
-    - handleDeleteTask()
-    - loadTaskListView()
+    + void setListScene(Scene listScene)
+    + void initialize()
+    - void handleSaveTask()
+    - void handleDeleteTask()
+    - void handleCancel()
+}
+
+class Controller {
+    + void switchScene(Scene scene, Event event)
 }
 
 class TaskService {
+    - ObjectOutputStream oos
+    - ObjectInputStream ois
     + List<TaskPreview> getTaskList()
     + Task getTask(int taskId)
     + Task addTask(Task newTask)
@@ -52,6 +79,7 @@ class Server {
     + Task addTask(Task task)
     + Task updateTask(Task task)
     + boolean deleteTask(int id)
+    + main()
 }
 
 class TaskManager {
@@ -77,11 +105,15 @@ class Task {
     - Status currentStatus
     - List<Comment> comments
     - LocalDate dueDate
-    + void setCurrentStatus(int statusIndex)
+    - Status currentStatus
+    + void setTitle(String title)
+    + void setDescription(String desc)
+    + void setCurrentStatus(Status status)
     + String getCurrentStatus()
     + void setComments(List<Comment> comments)
     + List<Comment> getComments()
     + void addComment(Comment comment)
+    + Comment getComment(int id)
     + void setDueDate(Date date)
     + LocalDate getDueDate()
 }
@@ -94,52 +126,62 @@ class Builder {
     - LocalDate dueDate
     - Status currentStatus
     + Builder description()
+    + Builder currentStatus()
     + Builder dueDate()
     + Task build()
     - String validateTitle()
-
 }
 
 class TaskPreview {
     - int taskId
     - String title
     - Status currentStatus
+    - LocalDate dueDate
     + int getTaskId()
     + String getTitle()
     + String getCurrentStatus()
+    + LocalDate getDueDate()
 }
 
 class Comment {
+    - int counter
+    - int id
+    - int COMMENT_MAX_LENGTH
+    - int incrementId()
+    - void setDescription(String desc)
 }
 
 abstract class Content {
-    - int id
     - String title
     - String description
-    - User creator
-    - Date createdAt
-    + void setId(int id)
-    + int getId()
+    - LocalDate createdAt
+    - long serialVersionUID
     + void setTitle(String title)
     + String getTitle()
     + void setDescription(String description)
     + String getDescription()
-    + void setCreatedAt(Date date)
+    + void setCreatedAt(LocalDate date)
     + Date getCreatedAt()
 }
 
+Controller <|-- TaskAddController
+Controller <|-- TaskEditController
+Controller <|-- TaskListController
 Content <|-- Task
 Content <|-- Comment
 Task *-- Comment
+TaskEditContext .. TaskListController
+TaskEditContext .. TaskEditController
+TaskEditContext o-- Task
 TaskManager o-- Task
 TaskManager o-- TaskPreview
 Task --> Status
 Task -- Builder
 TaskPreview --> Status
-TaskController o-- TaskService: Uses
+TaskListController o-- TaskService: Uses
 TaskAddController o-- TaskService: Uses
 TaskEditController o-- TaskService: Uses
-TaskApplication o-- TaskController
+TaskApplication o-- TaskListController
 TaskApplication o-- TaskAddController
 TaskApplication o-- TaskEditController
 TaskService o-- Server: Sends Requests

@@ -1,58 +1,69 @@
 package com.todo.javafinalp1;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class TaskEditController {
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button cancelButton;
-
+public class TaskEditController extends Controller {
     @FXML
     private TextField titleField;  // TextField for the task title
-
     @FXML
     private TextArea descriptionArea;  // TextArea for the task description
-
     @FXML
     private ChoiceBox<String> statusChoiceBox;  // ChoiceBox for selecting task status
-
+    @FXML
+    private Label creationDateLabel;
     @FXML
     private DatePicker dueDatePicker;  // DatePicker for selecting the task's due date
+    private static Scene listScene;
+    private Task taskToEdit = TaskEditContext.getInstance().getCurrentTask();
+    private int currentTaskId = TaskEditContext.getInstance().getCurrentTaskId();
 
-    private Task taskToEdit;
+    public static void setListScene(Scene scene) {
+        listScene = scene;
+    }
+
+    public void initialize() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+        String formattedDate = taskToEdit.getCreatedAt().format(formatter);
+
+        if (taskToEdit != null) {
+            titleField.setText(taskToEdit.getTitle());
+            descriptionArea.setText(taskToEdit.getDescription());
+            statusChoiceBox.setValue(taskToEdit.getCurrentStatus().toString());
+            dueDatePicker.setValue(taskToEdit.getDueDate());
+            creationDateLabel.setText(formattedDate);
+        }
+    }
 
     // Handle the Save button click
     @FXML
-    private void handleSaveTask() {
+    private void handleSaveTask(ActionEvent event) {
         // Retrieve values from the form fields
         String taskTitle = titleField.getText();
         String taskDescription = descriptionArea.getText();
-        String taskStatus = statusChoiceBox.getValue();  // Get the selected status
+        String taskStatus = statusChoiceBox.getValue();
+        LocalDate dueDate = dueDatePicker.getValue();
 
         // Convert task status to uppercase to match enum constants
-        Status status = Status.valueOf(taskStatus.toUpperCase());  // Ensure uppercase
-
-        LocalDate dueDate = dueDatePicker.getValue();
+        String normalizedStatus = taskStatus.toUpperCase().replace(" ", "_");
 
         // Build the updated task object
         Task updatedTask = new Task.Builder(taskTitle)
                 .description(taskDescription)
-                .currentStatus(taskStatus)  // Use the string status for the builder, or set it as needed
+                .currentStatus(normalizedStatus)  // Use the string status for the builder, or set it as needed
                 .dueDate(dueDate)
                 .build();
 
         // Use TaskService to update the task on the server
-        Task updatedTaskResponse = TaskService.updateTask(1, updatedTask);
+        Task updatedTaskResponse = TaskService.updateTask(currentTaskId, updatedTask);
 
         // Check for update success and close the window if successful
         if (updatedTaskResponse != null) {
@@ -61,32 +72,22 @@ public class TaskEditController {
             System.out.println("Failed to update the task.");
         }
 
-        // Close the current window after saving
-        Stage stage = (Stage) saveButton.getScene().getWindow();
-        stage.close();
+        switchScene(listScene, event);
     }
 
-    // Handle the Cancel button click
     @FXML
-    private void handleCancelTask() {
-        // Close the window without saving
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
-    }
-
-    // Initialize the controller with the task to be edited
-    public void initialize() {
-        if (taskToEdit != null) {
-            // Pre-fill the form with existing task data
-            titleField.setText(taskToEdit.getTitle());
-            descriptionArea.setText(taskToEdit.getDescription());
-            statusChoiceBox.setValue(taskToEdit.getCurrentStatus().toString());
-            dueDatePicker.setValue(taskToEdit.getDueDate());
+    private void handleDeleteTask(ActionEvent event) {
+        if(TaskService.deleteTask(currentTaskId)) {
+            System.out.println("Task was deleted");
+            switchScene(listScene, event);
+        } else {
+            System.out.println("Task was not deleted");
         }
     }
 
-    // Method to set the task being edited (called from the TaskListViewController or another controller)
-    public void setTaskToEdit(Task task) {
-        this.taskToEdit = task;
+    @FXML
+    private void handleCancel(ActionEvent event) {
+        System.out.println("No action taken");
+        switchScene(listScene, event);
     }
 }
